@@ -4,7 +4,7 @@
 
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
-Version:	1.0.12
+Version:	1.0.13
 Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers

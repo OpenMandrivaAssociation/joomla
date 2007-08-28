@@ -5,7 +5,7 @@
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
 Version:	1.0.13
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		System/Servers
 URL:		http://www.joomla.org/
@@ -13,6 +13,7 @@ Source0:	Joomla_%{version}-Stable-Full_Package.tar.bz2
 Source1:	joomla-16x16.png
 Source2:	joomla-32x32.png
 Source3:	joomla-48x48.png
+Patch0:		joomla-sec_fix.diff
 BuildRequires:	apache-base >= 2.0.54
 BuildRequires:	file
 Requires(pre):	apache-mod_php php-mysql php-gd php-xml
@@ -32,8 +33,6 @@ Summary:	Administrative web interface for Joomla Open Source (CMS)
 Group:		System/Servers
 Requires(pre):	%{name} = %{version}-%{release}
 Requires:	%{name} = %{version}-%{release}
-Requires(post): desktop-file-utils
-Requires(postun): desktop-file-utils
 
 %description	administrator
 Administrative web interface for Joomla Open Source (CMS)
@@ -41,6 +40,7 @@ Administrative web interface for Joomla Open Source (CMS)
 %prep
 
 %setup -q -c -n %{name}-%{version}
+%patch0 -p1
 
 # clean up CVS stuff
 for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do
@@ -155,12 +155,10 @@ rm -f %{buildroot}/var/www/%{name}/htaccess.txt %{buildroot}/var/www/%{name}/joo
 %post administrator
 %_post_webapp
 %update_menus
-%update_desktop_database
 
 %postun administrator
 %_postun_webapp
 %clean_menus
-%clean_desktop_database
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -200,5 +198,3 @@ rm -f %{buildroot}/var/www/%{name}/htaccess.txt %{buildroot}/var/www/%{name}/joo
 %{_miconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_datadir}/applications/*.desktop
-
-

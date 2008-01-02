@@ -22,6 +22,7 @@ Requires:	joomla-administrator
 BuildArch:	noarch
 Provides:	mambo
 Obsoletes:	mambo
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Joomla! is a Content Management System (CMS) created by the same award-winning

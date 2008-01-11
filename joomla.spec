@@ -119,16 +119,6 @@ install -m0644 joomla-32x32.png %{buildroot}%{_iconsdir}/%{name}.png
 install -m0644 joomla-48x48.png %{buildroot}%{_liconsdir}/%{name}.png
 
 # install menu entry.
-install -d %{buildroot}%{_menudir}
-cat > %{buildroot}%{_menudir}/%{name} << EOF
-?package(%{name}): needs=X11 \
-section="More Applications/Servers" \
-title="joomla!" \
-longtitle="Administrative web interface for Joomla Open Source (CMS)." \
-command="%{_bindir}/www-browser http://localhost/%{name}/administrator/" \
-icon="%{name}.png" \
-xdg="true"
-EOF
 
 # XDG menu
 install -d %{buildroot}%{_datadir}/applications
@@ -193,7 +183,6 @@ rm -f %{buildroot}/var/www/%{name}/htaccess.txt %{buildroot}/var/www/%{name}/joo
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/components
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/modules
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/templates
-%{_menudir}/%{name}
 %{_iconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png

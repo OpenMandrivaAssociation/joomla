@@ -5,7 +5,7 @@
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
 Version:	1.0.13
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPL
 Group:		System/Servers
 URL:		http://www.joomla.org/
@@ -126,7 +126,7 @@ cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Joomla Administrator
 Comment=Administrative web interface for Joomla Open Source (CMS)
-Exec="%{_bindir}/www-browser http://localhost/%{name}/administrator/"
+Exec=%{_bindir}/www-browser http://localhost/%{name}/administrator/
 Icon=%{name}
 Terminal=false
 Type=Application

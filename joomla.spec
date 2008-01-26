@@ -163,12 +163,6 @@ rm -f %{buildroot}/var/www/%{name}/htaccess.txt %{buildroot}/var/www/%{name}/joo
 %dir %attr(0755,apache,root) /var/www/%{name}/images/banners
 %dir %attr(0755,apache,root) /var/www/%{name}/images/stories
 %dir %attr(0755,apache,root) /var/www/%{name}/language
-%dir %attr(0755,apache,root) /var/www/%{name}/mambots
-%dir %attr(0755,apache,root) /var/www/%{name}/mambots/content
-%dir %attr(0755,apache,root) /var/www/%{name}/mambots/editors
-%dir %attr(0755,apache,root) /var/www/%{name}/mambots/editors-xtd
-%dir %attr(0755,apache,root) /var/www/%{name}/mambots/search
-%dir %attr(0755,apache,root) /var/www/%{name}/mambots/system
 %dir %attr(0755,apache,root) /var/www/%{name}/media
 %dir %attr(0755,apache,root) /var/www/%{name}/modules
 %dir %attr(0755,apache,root) /var/www/%{name}/templates

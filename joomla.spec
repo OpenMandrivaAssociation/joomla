@@ -4,12 +4,12 @@
 
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
-Version:	1.5.0
+Version:	1.5.1
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Servers
 URL:		http://www.joomla.org/
-Source0:	Joomla-%{version}.tar.bz2
+Source0:	http://joomlacode.org/gf/download/frsrelease/6681/21853/Joomla_%version-Stable-Full_Package.tar.bz2
 Source1:	joomla-16x16.png
 Source2:	joomla-32x32.png
 Source3:	joomla-48x48.png

@@ -142,11 +142,15 @@ rm -f %{buildroot}/var/www/%{name}/htaccess.txt %{buildroot}/var/www/%{name}/joo
 
 %post administrator
 %_post_webapp
+%if %mdkversion < 200900
 %update_menus
+%endif
 
 %postun administrator
 %_postun_webapp
+%if %mdkversion < 200900
 %clean_menus
+%endif
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}

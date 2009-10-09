@@ -13,6 +13,7 @@ Source0:	Joomla_%{version}-Stable-Full_Package.tar.bz2
 Source1:	joomla-16x16.png
 Source2:	joomla-32x32.png
 Source3:	joomla-48x48.png
+Patch0:		joomla-htaccess.patch.bz2
 BuildRequires:	apache-base >= 2.0.54
 BuildRequires:	file
 BuildRequires:	unzip
@@ -40,6 +41,7 @@ Administrative web interface for Joomla Open Source (CMS)
 %prep
 
 %setup -q -c -n %{name}-%{version}
+%patch0
 
 # clean up CVS stuff
 for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do

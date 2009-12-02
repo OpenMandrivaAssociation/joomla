@@ -4,8 +4,8 @@
 
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
-Version:	1.5.14
-Release:	%mkrel 3
+Version:	1.5.15
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Servers
 URL:		http://www.joomla.org/
@@ -14,10 +14,6 @@ Source1:	joomla-16x16.png
 Source2:	joomla-32x32.png
 Source3:	joomla-48x48.png
 Patch0:		joomla-htaccess.patch.bz2
-# (oe) P1 was taken from:
-# http://community.joomla.org/blogs/community/990-testing-help-with-php-530.html
-# http://joomlacode.org/gf/download/trackeritem/17150/42624/joomla_php53test.zip
-Patch1:		joomla-1.5.14-php53.diff
 BuildRequires:	apache-base >= 2.0.54
 BuildRequires:	file
 BuildRequires:	unzip
@@ -46,7 +42,6 @@ Administrative web interface for Joomla Open Source (CMS)
 
 %setup -q -c -n %{name}-%{version}
 %patch0
-%patch1 -p1
 
 # clean up CVS stuff
 for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do

@@ -5,7 +5,7 @@
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
 Version:	1.5.15
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		System/Servers
 URL:		http://www.joomla.org/
@@ -14,16 +14,19 @@ Source1:	joomla-16x16.png
 Source2:	joomla-32x32.png
 Source3:	joomla-48x48.png
 Patch0:		joomla-htaccess.patch.bz2
-BuildRequires:	apache-base >= 2.0.54
-BuildRequires:	file
-BuildRequires:	unzip
-Requires(pre):	apache-mod_php php-mysql php-gd php-xml
-Requires:	apache-mod_php php-mysql php-gd php-xml
+Requires:	apache-mod_php
+Requires:	php-mysql
+Requires:	php-xml
+Requires:	php-gd
+%if %mdkversion < 201010
+Requires(post):   rpm-helper
+Requires(postun):   rpm-helper
+%endif
 Requires:	joomla-administrator
 BuildArch:	noarch
 Provides:	mambo
 Obsoletes:	mambo
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Joomla! is a Content Management System (CMS) created by the same award-winning
@@ -32,8 +35,11 @@ team that brought the Mambo CMS to its current state of stardom.
 %package	administrator
 Summary:	Administrative web interface for Joomla Open Source (CMS)
 Group:		System/Servers
-Requires(pre):	%{name} = %{version}-%{release}
 Requires:	%{name} = %{version}-%{release}
+%if %mdkversion < 201010
+Requires(post):   rpm-helper
+Requires(postun):   rpm-helper
+%endif
 
 %description	administrator
 Administrative web interface for Joomla Open Source (CMS)
@@ -54,10 +60,6 @@ find . -type d | xargs chmod 755
 # fix file perms
 find . -type f | xargs chmod 644
 
-# strip away annoying ^M
-find . -type f|xargs file|grep 'CRLF'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
-find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
-
 cp %{SOURCE1} .
 cp %{SOURCE2} .
 cp %{SOURCE3} .
@@ -65,7 +67,7 @@ cp %{SOURCE3} .
 %build
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d
 install -d %{buildroot}%{_sysconfdir}/%{name}
@@ -76,38 +78,33 @@ cp -aRf * %{buildroot}/var/www/%{name}/
 touch %{buildroot}/var/www/%{name}/configuration.php
 
 # apache config
-cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/01_%{name}.conf << EOF
+cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf << EOF
 
 Alias /%{name} /var/www/%{name}
 
 <Directory /var/www/%{name}>
-    Allow from All
+    Allow from all
 </Directory>
 
 <Directory /var/www/%{name}/installation>
-    Order Deny,Allow
-    Deny from All
+    Order deny,allow
+    Deny from all
     Allow from 127.0.0.1
     ErrorDocument 403 "Access denied per %{_sysconfdir}/httpd/conf/webapps.d/01_%{name}.conf"
 </Directory>
 
 EOF
 
-cat htaccess.txt >> %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/01_%{name}.conf
+cat htaccess.txt >> %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf
 
-cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/02_%{name}-administrator.conf << EOF
+cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}-administrator.conf << EOF
 
 <Directory /var/www/%{name}/administrator>
-    Allow from All
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1
+    ErrorDocument 403 "Access denied per %{_sysconfdir}/httpd/conf/webapps.d/01_%{name}.conf"
 </Directory>
-
-#<LocationMatch /%{name}/administrator>
-#    Options FollowSymLinks
-#    RewriteEngine on
-#    RewriteCond %{SERVER_PORT} !^443$
-#    RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
-#</LocationMatch>
-
 EOF
 
 # Mandriva Icons
@@ -138,29 +135,37 @@ EOF
 rm -f %{buildroot}/var/www/%{name}/htaccess.txt %{buildroot}/var/www/%{name}/joomla-*.png
 
 %post
+%if %mdkversion < 201010
 %_post_webapp
+%endif
 
 %postun
+%if %mdkversion < 201010
 %_postun_webapp
+%endif
 
 %post administrator
+%if %mdkversion < 201010
 %_post_webapp
+%endif
 %if %mdkversion < 200900
 %update_menus
 %endif
 
 %postun administrator
+%if %mdkversion < 201010
 %_postun_webapp
+%endif
 %if %mdkversion < 200900
 %clean_menus
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/01_%{name}.conf
+%config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf
 %exclude /var/www/%{name}/administrator
 /var/www/%{name}
 %config(noreplace) %attr(0644,apache,root) /var/www/%{name}/configuration.php
@@ -176,7 +181,7 @@ rm -f %{buildroot}/var/www/%{name}/htaccess.txt %{buildroot}/var/www/%{name}/joo
 
 %files administrator
 %defattr(-, root, root)
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/02_%{name}-administrator.conf
+%config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/%{name}-administrator.conf
 /var/www/%{name}/administrator
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/backups
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/components

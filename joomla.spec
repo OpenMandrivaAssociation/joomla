@@ -4,8 +4,8 @@
 
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
-Version:	1.5.15
-Release:	%mkrel 2
+Version:	1.5.17
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Servers
 URL:		http://www.joomla.org/
@@ -107,6 +107,54 @@ cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}-administrator.conf
 </Directory>
 EOF
 
+cat > README.urpmi <<EOF
+Once this package is installed, there are a few configuration items which need
+to be performed before the application is usable.  First, you need to install
+Mysql database and corresponding php modules:
+
+# urpmi mysql php-mysql
+
+Then, you need to establish a username and password to connect to your
+MySQL database as, and make both MySQL and Joomla aware of this.
+Let's start by creating the database and the username / password
+inside MySQL first:
+
+  # mysql
+  mysql> create database joomla;
+  Query OK, 1 row affected (0.00 sec)
+
+  mysql> grant all privileges on joomla.* to joomla identified by 'joomla';
+  Query OK, 0 rows affected (0.00 sec)
+
+  mysql> flush privileges;
+  Query OK, 0 rows affected (0.00 sec)
+
+  mysql> exit
+  Bye
+  #
+
+Under certain curcumstances, you may need to run variations of the "grant"
+command:
+mysql> grant all privileges on joomla.* to joomla@localhost identified by 'joomla';
+   OR
+mysql> grant all privileges on joomla.* to joomla@'%' identified by 'joomla';
+
+This has created an empty database called 'joomla', created a user named
+'joomla' with a password of 'joomla', and given the 'joomla' user total
+permission over the 'joomla' database.  Obviously, you'll want to select a
+different password, and you may want to choose different database and user
+names depending on your installation.  The specific values you choose are
+not constrained, they simply need to be consistent between the database and the
+config file.
+
+Once that's done and the database server and web server have been started, 
+ in your favourite web browser, enter following URL :
+http://localhost/joomla/  and 
+follow the instructions given to you on the pages you see to set up the 
+database tables. Then, when required, removed the directory 
+/var/www/joomla/installation/.
+EOF
+
 # Mandriva Icons
 install -d %{buildroot}%{_iconsdir}
 install -d %{buildroot}%{_miconsdir}
@@ -165,6 +213,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
+%doc README.urpmi
 %config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf
 %exclude /var/www/%{name}/administrator
 /var/www/%{name}

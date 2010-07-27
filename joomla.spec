@@ -4,7 +4,7 @@
 
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
-Version:	1.5.17
+Version:	1.5.20
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Servers
@@ -90,7 +90,7 @@ Alias /%{name} /var/www/%{name}
     Order deny,allow
     Deny from all
     Allow from 127.0.0.1
-    ErrorDocument 403 "Access denied per %{_sysconfdir}/httpd/conf/webapps.d/01_%{name}.conf"
+    ErrorDocument 403 "Access denied per %{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf"
 </Directory>
 
 EOF
@@ -103,7 +103,7 @@ cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}-administrator.conf
     Order deny,allow
     Deny from all
     Allow from 127.0.0.1
-    ErrorDocument 403 "Access denied per %{_sysconfdir}/httpd/conf/webapps.d/01_%{name}.conf"
+    ErrorDocument 403 "Access denied per %{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf"
 </Directory>
 EOF
 

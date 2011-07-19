@@ -4,12 +4,12 @@
 
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
-Version:	1.5.22
+Version:	1.5.23
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Servers
 URL:		http://www.joomla.org/
-Source0:	Joomla_%{version}-Stable-Full_Package.zip
+Source0:	Joomla_%{version}-Stable-Full_Package.tar.gz
 Source1:	joomla-16x16.png
 Source2:	joomla-32x32.png
 Source3:	joomla-48x48.png
@@ -47,7 +47,7 @@ Administrative web interface for Joomla Open Source (CMS)
 %prep
 
 %setup -q -c -n %{name}-%{version}
-%patch0
+#%patch0
 
 # clean up CVS stuff
 for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do

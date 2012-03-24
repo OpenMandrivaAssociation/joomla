@@ -222,7 +222,7 @@ rm -rf %{buildroot}
 %dir %attr(0755,apache,root) /var/www/%{name}/components
 %dir %attr(0755,apache,root) /var/www/%{name}/images
 %dir %attr(0755,apache,root) /var/www/%{name}/images/banners
-%dir %attr(0755,apache,root) /var/www/%{name}/images/stories
+#%dir %attr(0755,apache,root) /var/www/%{name}/images/stories
 %dir %attr(0755,apache,root) /var/www/%{name}/language
 %dir %attr(0755,apache,root) /var/www/%{name}/media
 %dir %attr(0755,apache,root) /var/www/%{name}/modules

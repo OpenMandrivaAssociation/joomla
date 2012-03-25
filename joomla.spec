@@ -232,7 +232,7 @@ rm -rf %{buildroot}
 %defattr(-, root, root)
 %config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/%{name}-administrator.conf
 /var/www/%{name}/administrator
-%dir %attr(0755,apache,root) /var/www/%{name}/administrator/backups
+#%dir %attr(0755,apache,root) /var/www/%{name}/administrator/backups
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/components
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/modules
 %dir %attr(0755,apache,root) /var/www/%{name}/administrator/templates

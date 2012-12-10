@@ -1,8 +1,7 @@
+---
 sources:
-  "joomla-16x16.png:"	efea8d3c1eb957ef8dd5541449c9f0130b82ff5e
-  "Joomla_2.5.3-Stable-Full_Package.tar.gz:"	f53b1be665c43e50f3a645b8f4e672838655143a
-  "Joomla_2.5.4-Stable-Full_Package.tar.gz:"	5b1f2815e10ec41206b0797d4872f098f1a9c2c2
-  "Joomla_2.5.5-Stable-Full_Package.tar.gz:"	8fdc4767ed0d34421f4e81ba568b36f7c605abc0
-  "Joomla_2.5.6-Stable-Full_Package.tar.gz:"	584b4f84c18f74ec0adf157b713ba5edcc2f9d9a
-  "joomla-32x32.png:"	8099eea06a477888c1ebe918403ec2a03092a940
-  "joomla-48x48.png:"	0042caf943cb77eba40dd1abad0d9f9f4438e313
+  Joomla_1.5.20-Stable-Full_Package.tar.bz2: a7349ed02bea09bfd562b9aeae62da167b01f33c
+  joomla-16x16.png: efea8d3c1eb957ef8dd5541449c9f0130b82ff5e
+  joomla-32x32.png: 8099eea06a477888c1ebe918403ec2a03092a940
+  joomla-48x48.png: 0042caf943cb77eba40dd1abad0d9f9f4438e313
+  joomla-htaccess.patch.bz2: 599256483a14bdc4abf3ba93eb6dbb1aa839f90d

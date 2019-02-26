@@ -4,8 +4,8 @@
 
 Summary:	Joomla Open Source (CMS)
 Name:		joomla
-Version:	1.5.20
-Release:	4
+Version:	3.9.3
+Release:	1
 License:	GPLv2+
 Group:		System/Servers
 URL:		http://www.joomla.org/

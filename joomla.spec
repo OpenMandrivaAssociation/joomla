@@ -8,7 +8,7 @@ Version:	1.5.20
 Release:	4
 License:	GPLv2+
 Group:		System/Servers
-URL:		http://www.joomla.org/
+URL:		https://www.joomla.org/
 Source0:	Joomla_%{version}-Stable-Full_Package.tar.bz2
 Source1:	joomla-16x16.png
 Source2:	joomla-32x32.png
